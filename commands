@@ -1,0 +1,150 @@
+/// LIST OF BadOS COMMANDS
+
+Safari Command List For BadOS
+
+GUI 1
+GUI 2
+GUI 3
+GUI 4
+GUI 5
+GUI 6
+GUI 7
+GUI 8
+GUI 9
+REM goes to that specific tab
+GUI t
+GUI n
+REM both Opens new tabs
+GUI w
+REM Deletes tab
+GUI-SHIFT n
+REM New Private tab
+GUI-SHIFT l
+REM safari side panel
+GUI-CTRL 3
+REM view history
+GUI-CTRL 1
+REM show bookmarks
+CTRL TAB
+REM Next Tab
+GUI s
+REM Should save page in safari
+
+
+NON Specific Commands For BadOS
+
+GUI RIGHT ARROW
+GUI LEFT ARROW
+REM swipe Next Selection
+RIGHT ARROW
+LEFT ARROW
+UP ARROW
+DOWN ARROW
+REM Arrow key navigation
+GUI l
+REM opens the ui of the text box
+GUI TAB
+REM switch between apps
+GUI h
+REM home button
+GUI SPACE
+REM Search Bar
+TAB
+REM Does Tab
+GUI-SHIFT 4
+REM will take a screenshot
+
+Note Commands for BadOS
+
+GUI n
+REM creates new note
+GUI f
+REM find a note
+BACKSPACE
+REM should delete note
+CTRL GUI s
+REM toggle sidebar
+GUI 1
+GUI 2
+GUI 3
+REM views notes different styles
+
+
+Photo Library commands for BadOS
+
+GUI-CTRL s
+REM hides sidebar
+GUI t
+REM changes photo layout
+ALT GUI 1
+GUI ALT 1
+REM enable favorites in gallery
+GUI +
+GUI -
+REM zoom in and out in gallery
+
+REM Must be in photo to work
+GUI l
+REM hide Photo option
+GUI f
+REM search in the photo
+GUI i 
+REM info about the photo
+GUI r
+REM rotate the photo
+
+
+Messages and contact commands for BadOS
+
+GUI n
+REM Makes a new message/contact
+GUI i
+REM shows info
+GUI f
+REM find someone
+GUI l 
+REM edits a contact 
+CTRL TAB
+REM Should go to next contact 
+CTRL-SHIFT TAB
+REM back to previous contact 
+
+
+File commands for BadOS
+
+GUI-SHIFT n
+REM makes new folder
+GUI f
+REM find certain file
+GUI a 
+REM should select all
+GUI-CTRL s
+REM hides sidebar
+GUI 1
+GUI 2
+GUI 3
+REM Views Files in different styles
+GUI-SHIFT f
+REM goes to recents
+GUI-SHIFT o
+REM goes to documents
+GUI ALT l
+REM should go to downloads
+GUI-SHIFT i
+REM should go to iCloud drive
+GUI k
+REM connect to a server
+
+
+Mail commands for BadOS
+
+GUI n
+REM create new mail
+GUI-SHIFT n 
+REM should select mail 
+GUI 1 
+REM opens inbox 
+GUI 2 
+REM Opens Vip box
+
+///ENDS HERE
