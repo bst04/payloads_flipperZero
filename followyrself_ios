@@ -1,9 +1,0 @@
-REM Follow urself in instagram
-GUI SPACE
-DELAY 200
-STRING Instagram
-DELAY 500
-GUI f
-STRING brusalvateich
-DELAY 500 
-ENTER
