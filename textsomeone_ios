@@ -1,21 +1,28 @@
-REM texts someone in there messges 
+REM Version 1.0
+REM OS: iOS
+REM Author: **bst04**
+
 GUI h
 DELAY 150
-GUI SPACE 
+GUI SPACE
+DELAY 150
+BACKSPACE
 DELAY 500
 STRING Messages
 DELAY 250
 ENTER
+DELAY 1500
+GUI n
 DELAY 250
-GUI l
-DELAY 1200
-STRING hey bro just need a favor can you
-DELAY 900
+STRING [persona]
+DELAY 500
 ENTER
-DELAY 600
-STRING gimme your FIRST name and LAST name
-DELAY 350
+DELAY 250
 TAB
-DELAY 200
 ENTER
-REM texts someone in there messges 
+DOWN ARROW
+DELAY 500
+STRING [texto]
+DELAY 500
+ENTER
+
