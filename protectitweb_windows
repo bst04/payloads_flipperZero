@@ -1,7 +1,0 @@
-DELAY 500
-GUI r
-DELAY 500
-STRING https://brunoooost.github.io/info.protectit/#contacto
-ENTER
-DELAY 5000
-REM Waits for the page to load
