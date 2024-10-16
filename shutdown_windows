@@ -3,7 +3,6 @@ REM Windows Devices
 DELAY 500
 GUI r
 DELAY 500
-STRING shutdown /s /f /t 0
-DELAY 10
-ENTER
+STRINGLN powershell -w h -NoP  shutdown -s -t 300
+
 
