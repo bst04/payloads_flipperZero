@@ -1,16 +1,17 @@
+REM Payload made by bst04
 REM Press the dpad to spam someone
 ENTER
 GUI l
 ENTER
 GUI l
-STRING i <3 spam
+STRING i text
 TAB
 ENTER
 GUI l
 ENTER
 GUI l
 REPEAT 2
-STRING i <3 spam
+STRING i <3 text
 TAB
 ENTER
 REM Press the dpad to spam someone
