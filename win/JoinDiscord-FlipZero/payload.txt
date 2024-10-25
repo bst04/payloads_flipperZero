@@ -1,0 +1,18 @@
+REM =======================
+REM made by bst04
+REM Join a discord server
+REM =======================
+
+DELAY 500
+GUI r
+DELAY 500
+STRING https://discord.com/invite/your-invite-code
+ENTER
+DELAY 5000
+REM Waits for the page to load
+DELAY 5000
+REM Clicks the "Accept Invite" button (coordinates may vary based on screen resolution)
+REM Move mouse to "Accept Invite" button location
+MOUSEXY 500 500
+REM Click mouse button
+CLICK
