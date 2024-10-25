@@ -1,5 +1,9 @@
 
 # payloads_fliperZero 🐬
+
+[![Licence](https://img.shields.io/badge/Licence-GPLv3-%239e264c?style=for-the-badge)]([https://github.com/aleff-github/my-flipper-shits/blob/main/LICENCE](https://github.com/brunoooost/payloads_flipperZero/blob/main/LICENSE))
+
+
 Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them.
 
 
