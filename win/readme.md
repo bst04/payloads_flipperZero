@@ -1,6 +1,6 @@
 
 # Payloads for Windows
-Here they are some of payloads for Windows Devices, if you see some errors please let me know. Also, if you want to share new payloads I will be
+Here they are some of payloads for Windows Devices, if you see some errors please let me know. Also, if you want to share new payloads **contact me**!
 
 ## List of payloads
 
