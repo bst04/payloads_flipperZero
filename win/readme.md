@@ -16,5 +16,7 @@ Here they are some of payloads for Windows Devices, if you see some errors pleas
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Open Website](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/OpenWeb-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Utility|[PC Login](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/PCLogin-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Excecution|[Change Password User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero)|🟢|
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Create Non User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CreateNonUser-FlipZero)|🟢|
+
 
 
