@@ -1,0 +1,11 @@
+REM =================================
+REM made by bst04
+REM just change "YOUR_PC_PASSWORD"
+REM =================================
+
+DELAY 2000
+SPACE
+DELAY 500
+STRING "YOUR_PC_PASSWORD"
+DELAY 750
+ENTER
