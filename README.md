@@ -1,6 +1,6 @@
 
 # payloads_fliperZero 🐬
-Some payloads for your Flipper Zero I made with DuckyScript®. 
+Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them.
 
 
 
