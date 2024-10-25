@@ -1,7 +1,8 @@
+REM ==================================
 REM Version 1.0
 REM OS: iOS
 REM Author: **bst04**
-
+REM =================================
 
 DELAY 2000
 GUI h
