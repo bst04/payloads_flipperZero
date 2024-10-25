@@ -1,6 +1,6 @@
 
 # Payloads for Windows
-All the windows payloads, for you ;) 
+Here they are some of payloads for Windows Devices, if you see some errors please let me know. Also, if you want to share new payloads I will be
 
 ## List of payloads
 
@@ -15,11 +15,5 @@ All the windows payloads, for you ;)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Open Website](https://github.com/brunoooost/payloads_flipperZero/blob/main/openweb_win)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Utility|[PC Login](https://github.com/brunoooost/payloads_flipperZero/blob/main/pclogin_general)|🟢|
 
-
-
-## Contributing
-All contributions are always welcome! List of contributors:
-
-- [@brunoooost](https://github.com/brunoooost) 
 
 
