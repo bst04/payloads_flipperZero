@@ -23,6 +23,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Utility|[Check Battery](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CheckBattery-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Shutdown ](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Shutdown-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Open Website](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/OpenWeb-FlipZero)|🟢|
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Fake Virus](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/FakeVirus-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Utility|[PC Login](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/PCLogin-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Create Non User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CreateNonUser-FlipZero)|🟢|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[Text Someone ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS)|🟡|
