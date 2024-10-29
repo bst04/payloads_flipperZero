@@ -15,7 +15,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 
 |System|Category|Name|PAP|
 |--|--|--|--|
-|![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Credentials|[IP Logger ](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/IPLogger-FlipZero)|🟡|
+|![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Execution|[IP Logger ](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/IPLogger-FlipZero)|🟡|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Alarm](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Alarm-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Join Discord Server](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero)|🟡|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Excecution|[Change Password User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero)|🟢|
