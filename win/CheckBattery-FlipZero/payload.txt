@@ -6,11 +6,11 @@ REM =======================================
 DELAY 1000
 GUI r
 DELAY 750
-STRING powershell -w h -NoP powercfg /batteryreport /output /Desktop/battery-report.html
+STRING powershell powercfg /batteryreport
 DELAY 750
 ENTER
 GUI r 
 DELAY 850
-STRING battery-report.html
+STRING powershell Start-Process "battery-report.html"
 DELAY 750
 ENTER
