@@ -1,0 +1,21 @@
+REM ==============================
+REM payload made by bst04
+REM ==============================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING Contacts
+DELAY 250
+ENTER
+GUI n 
+DELAY 250
+STRING Ricky
+DELAY 250
+TAB
+DELAY 250
+STRING Ashley 
+DELAY 250 
+ALT F4
+
+
