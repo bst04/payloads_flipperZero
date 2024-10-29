@@ -1,0 +1,17 @@
+REM ====================================
+REM payload made by bst04
+REM ITS A JOKE
+REM ====================================
+DELAY 1000
+GUI r 
+DELAY 250
+STRING powershell Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('Your system has been infected, if you shut down the computer it will delete all your files','Warning')
+DELAY 750
+ENTER
+DELAY 5000
+GUI r
+DELAY 250
+STRING powershell Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('DONT CLOSE THE WARNINGS, LAST CHANCE','ALERT')
+DELAY 750
+ENTER
+DELAY 1000
