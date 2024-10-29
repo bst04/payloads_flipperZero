@@ -9,6 +9,7 @@ DELAY 750
 STRING powershell powercfg /batteryreport
 DELAY 750
 ENTER
+DELAY 250
 GUI r 
 DELAY 850
 STRING powershell Start-Process "battery-report.html"
