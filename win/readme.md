@@ -7,7 +7,6 @@ Here they are some of payloads for Windows Devices, if you see some errors pleas
 
 |System|Category|Name|PAP|
 |--|--|--|--|
-|![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Credentials|[IP Logger ](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/IPLogger-FlipZero)|🟡|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Alarm](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Alarm-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Join Discord Server](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero)|🟡|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Spam Terminals](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/SpamTerminals)|🟢|
