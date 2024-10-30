@@ -12,10 +12,10 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Number of Payloads
 |System|Number|
 |--|--|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**5**|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**6**|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|**10**|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**3**|
-|**TOTAL**|**18**|
+|**TOTAL**|**19**|
 
 
 
@@ -27,6 +27,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 |--|--|--|--|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[IP Logger to Webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/IPLogger-FlipZero)|🟡|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Get Mac Address to Webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/GetMacAddress-FlipZero)|🟡|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Prank|[Pop Up](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/PopUp-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Shutdown iOS](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Shutdown-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Disable Wifi](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/DisableWiFi-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Updates|[Update Software](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/UpadateSoftware-FlipZero)|🟢|
