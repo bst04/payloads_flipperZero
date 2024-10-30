@@ -1,0 +1,11 @@
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING osascript -e 'tell application (path to frontmost application as text) to display dialog "Your computer has been infected, if you shut down the computer you may lose all the files" buttons {"OK"} with icon stop'
+DELAY 750
+ENTER
+
