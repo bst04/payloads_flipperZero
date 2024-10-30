@@ -14,3 +14,5 @@ DELAY 250
 STRING networksetup -setnetworkserviceenabled Wi-Fi off
 DELAY 500
 ENTER
+DELAY 250
+GUI q
