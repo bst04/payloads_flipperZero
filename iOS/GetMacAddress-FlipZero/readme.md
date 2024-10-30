@@ -1,12 +1,12 @@
-# GetMacAddress-FlipZero by bst04
+# 🖥️ GetMacAddress-FlipZero by bst04
 
-## Description
+## ℹ️ Description
 
 This payload, created by bst04, is designed to retrieve the MAC address and username from a macOS system and send this information to a specified webhook.
 
 ---
 
-## Technical Explanation
+## 📖 Technical Explanation
 
 1. **Initialization**:
     - `DELAY 1000`: Waits for 1 second to ensure the system is ready.
@@ -36,7 +36,7 @@ This payload, created by bst04, is designed to retrieve the MAC address and user
 
 ---
 
-## Usage
+## 📜 Usage
 
 1. Copy the payload script to your DuckyScript-enabled device.
 2. Ensure the device is connected to a macOS system.
