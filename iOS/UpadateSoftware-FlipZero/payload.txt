@@ -1,0 +1,15 @@
+REM ===============================
+REM payload made by bst04
+REM ===============================
+
+DELAY 2000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING sudo softwareupdate -i -a -R
+DELAY 500
+ENTER
+
