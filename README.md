@@ -26,7 +26,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 |System|Category|Name|PAP|
 |--|--|--|--|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[IP Logger to Webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/IPLogger-FlipZero)|🟡|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Get Mac Address to Webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/GetMacAddress-FlipZero)|🟡|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Credentials|[Get Mac Address to Webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/GetMacAddress-FlipZero)|🟡|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Prank|[Pop Up](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/PopUp-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Shutdown iOS](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Shutdown-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Disable Wifi](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/DisableWiFi-FlipZero)|🟢|
