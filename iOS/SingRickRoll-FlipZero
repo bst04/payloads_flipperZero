@@ -1,0 +1,30 @@
+REM =========================
+REM payload by bst04
+REM =========================
+
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+REM Volume Max
+STRING VOL=$(osascript -e 'Set Volume 100')
+DELAY 250
+ENTER
+DELAY 250
+REM text of the song
+STRING say Never gonna give you up Never gonna let you down. Never gonna run around and desert you. Never gonna make you cry. Never gonna say goodbye. Never gonna tell a lie and hurt you
+DELAY 500
+ENTER
+DELAY 250
+GUI SPACE
+DELAY 250
+REM opens a photo of ricky astley
+STRING https://149367133.v2.pressablecdn.com/wp-content/uploads/2021/02/rick-astley-never-gonna-give-you-up-4k-1000x600.jpg
+DELAY 250
+ENTER
+DELAY 250 
+
