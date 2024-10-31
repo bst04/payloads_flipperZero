@@ -1,4 +1,4 @@
-# payloads_fliperZero 🐬
+# payloads_flipperZero 🐬
 
 [![Licence](https://img.shields.io/badge/Licence-GPLv3-%239e264c?style=for-the-badge)]([https://github.com/aleff-github/my-flipper-shits/blob/main/LICENCE](https://github.com/brunoooost/payloads_flipperZero/blob/main/LICENSE))
 
