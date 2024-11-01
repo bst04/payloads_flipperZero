@@ -119,7 +119,7 @@ ENTER
 DELAY 1000
             </pre>
 
-            <button onclick="togglePayload('payload3')">Turn Off Wi-Fi</button>
+            <button onclick="togglePayload('payload3')">Disable WiFI</button>
             <pre id="payload3">
 REM =================================
 REM payload made by bst04
@@ -151,6 +151,41 @@ DELAY 750
 STRING shutdown /s /f /t 0 
 DELAY 750 
 ENTER
+            </pre>
+            
+             <button onclick="togglePayload('payload5')">Set Volume Max</button>
+            <pre id="payload5">
+REM ===========================
+REM payload by bst04
+REM ===========================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING VOL=$(osascript -e 'Set Volume 100')
+DELAY 250
+ENTER
+DELAY 250
+GUI q
+            </pre>
+             <button onclick="togglePayload('payload6')">Update Software - MacOS</button>
+            <pre id="payload6">
+REM ===============================
+REM payload made by bst04
+REM ===============================
+
+DELAY 2000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING sudo softwareupdate -i -a -R
+DELAY 500
+ENTER
+
+            
             </pre>
         </div> 
     </div> 
