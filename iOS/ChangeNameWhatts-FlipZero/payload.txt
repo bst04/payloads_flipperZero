@@ -13,6 +13,8 @@ CTRL p
 DELAY 250
 TAB 
 DELAY 250
+TAB 
+DELAY 250
 REM changing name of whats
 STRING anonimous
 DELAY 250
