@@ -12,9 +12,9 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Number of Payloads
 |System|Number|
 |--|--|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**9**|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**10**|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|**10**|
-|![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**3**|
+|![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**2**|
 |**TOTAL**|**22**|
 
 
@@ -34,6 +34,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|General|[Set Volume Maximum](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SetVolumeMax-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Prank|[Sing RickRoll](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SingRickRoll-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|General|[WhatsApp Name Status](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ChangeNameWhatts-FlipZero)|🟢|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Prank|[WhatsApp Message ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Send_WhatsApp-FlipZero)|🟡|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Alarm](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Alarm-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Join Discord Server](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero)|🟡|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Excecution|[Change Password User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero)|🟢|
@@ -45,7 +46,6 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Utility|[PC Login](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/PCLogin-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Create Non User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CreateNonUser-FlipZero)|🟢|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[Text Someone ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SendMessages-FlipZero)|🟡|
-|![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[WhatsApp Message ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Send_WhatsApp-FlipZero)|🟡|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[RickRoll Contacts ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Contact-RickRoll-FlipZero)|🟢|
 
 
