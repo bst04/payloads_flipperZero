@@ -12,10 +12,10 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Number of Payloads
 |System|Number|
 |--|--|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**8**|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**9**|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|**10**|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**3**|
-|**TOTAL**|**21**|
+|**TOTAL**|**22**|
 
 
 
@@ -33,6 +33,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Updates|[Update Software](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/UpadateSoftware-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|General|[Set Volume Maximum](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SetVolumeMax-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Prank|[Sing RickRoll](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SingRickRoll-FlipZero)|🟢|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|General|[WhatsApp Name Status](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ChangeNameWhatts-FlipZero)|🟢|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Alarm](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Alarm-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Join Discord Server](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero)|🟡|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Excecution|[Change Password User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero)|🟢|
