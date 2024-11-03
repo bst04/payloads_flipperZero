@@ -1,0 +1,15 @@
+REM ======================
+REM payload by bst04
+REM ======================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING FIND MY 
+DELAY 250
+ENTER
+FN f
+DELAY 500
+MOSUEXY 47 810
+CLICK
+DELAY 250
