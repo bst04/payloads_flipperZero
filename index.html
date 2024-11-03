@@ -12,8 +12,8 @@
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start;
+            min-height: 100vh;
             animation: fadeIn 2s ease-in;
         }
         @keyframes fadeIn {
@@ -25,7 +25,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
+            max-width: 900px;
             width: 100%;
             animation: slideIn 2s ease-in-out;
         }
@@ -33,7 +33,7 @@
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        h1 {
+        h1, h2 {
             text-align: center;
             color: #333;
             animation: colorChange 3s infinite alternate;
@@ -74,6 +74,12 @@
             background-color: #e0f7fa;
             transition: background-color 0.3s;
         }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
@@ -103,50 +109,167 @@
             </tr>
         </table>
 
-        <h2>Popular Payloads</h2>
-        <table>
-            <tr>
-                <th>System</th>
-                <th>Category</th>
-                <th>Payload</th>
-            </tr>
-            <tr>
-                <td>macOS</td>
-                <td>Execution</td>
-                <td>IP Logger to Webhook.</td>
-            </tr>
-            <tr>
-                <td>macOS</td>
-                <td>Credentials</td>
-                <td>Get Mac Address to Webhook.</td>
-            </tr>
-            <tr>
-                <td>macOS</td>
-                <td>General</td>
-                <td>Disable Wifi</td>
-            </tr>
-            <tr>
-                <td>macOS</td>
-                <td>General</td>
-                <td>Show Number on Signal</td>
-            </tr>
-            <tr>
-                <td>macOS</td>
-                <td>Prank</td>
-                <td>WhatsApp Message</td>
-            </tr>
-            <tr>
-                <td>Windows</td>
-                <td>Prank</td>
-                <td>Spam Terminals</td>
-            </tr>
-            <tr>
-                <td>Windows</td>
-                <td>Utility</td>
-                <td>Check Battery</td>
-            </tr>
-             
-        </table>
+        <div class="center">
+            <h2>Payload Details</h2>
+            <table>
+                <tr>
+                    <th>System</th>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>PAP</th>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Execution</td>
+                    <td>IP Logger to Webhook</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Credentials</td>
+                    <td>Get Mac Address to Webhook</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Prank</td>
+                    <td>Pop Up</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>General</td>
+                    <td>Shutdown iOS</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>General</td>
+                    <td>Disable Wifi</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Updates</td>
+                    <td>Update Software</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>General</td>
+                    <td>Set Volume Maximum</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Prank</td>
+                    <td>Sing RickRoll</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>General</td>
+                    <td>WhatsApp Name Status</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Prank</td>
+                    <td>WhatsApp Message</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>General</td>
+                    <td>Show Number on Signal</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Credentials</td>
+                    <td>Send SystemProfile to Webhook</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>macOS</td>
+                    <td>Execution</td>
+                    <td>Send Current Location</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Prank</td>
+                    <td>Alarm</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Prank</td>
+                    <td>Join Discord Server</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Execution</td>
+                    <td>Change Password User</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Prank</td>
+                    <td>Spam Terminals</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Utility</td>
+                    <td>Check Battery</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>General</td>
+                    <td>Shutdown</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Utility</td>
+                    <td>Open Website</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Prank</td>
+                    <td>Fake Virus</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Utility</td>
+                    <td>PC Login</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>Windows</td>
+                    <td>Prank</td>
+                    <td>Create Non User</td>
+                    <td>🟢</td>
+                </tr>
+                <tr>
+                    <td>iOS</td>
+                    <td>Prank</td>
+                    <td>Text Someone</td>
+                    <td>🟡</td>
+                </tr>
+                <tr>
+                    <td>iOS</td>
+                    <td>Prank</td>
+                    <td>RickRoll Contacts</td>
+                    <td>🟢</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>
