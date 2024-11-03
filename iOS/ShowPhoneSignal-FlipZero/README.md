@@ -1,4 +1,4 @@
-# ShowPhoneSignal-FlipZero by bst04
+# 📞 ShowPhoneSignal-FlipZero by bst04
 - This payload is designed to automate the configuration process in the Signal application using DuckyScript. It opens the Signal app, navigates through various settings, and performs specific actions such as enabling or disabling options.
 ## 📖 Description
 This script performs the following steps:
