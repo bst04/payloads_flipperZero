@@ -1,275 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payload Summary</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            animation: fadeIn 2s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            width: 100%;
-            animation: slideIn 2s ease-in-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        h1, h2 {
-            text-align: center;
-            color: #333;
-            animation: colorChange 3s infinite alternate;
-        }
-        @keyframes colorChange {
-            from { color: #007acc; }
-            to { color: #333; }
-        }
-        p {
-            text-align: center;
-            color: #666;
-        }
-        a {
-            color: #007acc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 15px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-            color: #555;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #e0f7fa;
-            transition: background-color 0.3s;
-        }
-        .center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Payload List for Flipper Zero</title>
+  <style>
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    a {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    /* Layout Styles */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+    header, .section {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.2em;
+      color: #1e40af;
+    }
+    .section h2 {
+      font-size: 1.8em;
+      color: #374151;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* Badge Styles */
+    .badge {
+      display: inline-block;
+      padding: 8px 12px;
+      font-size: 0.9em;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 4px;
+      margin: 5px;
+    }
+    .badge-mac { background-color: #000000; }
+    .badge-windows { background-color: #0078d6; }
+    .badge-ios { background-color: #333333; }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    table, th, td {
+      border: 1px solid #e5e7eb;
+    }
+    th, td {
+      padding: 12px;
+      font-size: 0.95em;
+    }
+    th {
+      background-color: #f3f4f6;
+      color: #6b7280;
+    }
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Payload Summary</h1>
-        <p>I made some payloads, and you can find them on my <a href="https://github.com/brunoooost">GitHub profile</a>.</p>
-        <table>
-            <tr>
-                <th>Operating System</th>
-                <th>Number of Payloads</th>
-            </tr>
-            <tr>
-                <td>macOS</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>Windows</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>iOS</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <th>22</th>
-            </tr>
-        </table>
 
-        <div class="center">
-            <h2>Payload Details</h2>
-            <table>
-                <tr>
-                    <th>System</th>
-                    <th>Category</th>
-                    <th>Name</th>
-                    <th>PAP</th>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Execution</td>
-                    <td>IP Logger to Webhook</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Credentials</td>
-                    <td>Get Mac Address to Webhook</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Prank</td>
-                    <td>Pop Up</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>General</td>
-                    <td>Shutdown iOS</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>General</td>
-                    <td>Disable Wifi</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Updates</td>
-                    <td>Update Software</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>General</td>
-                    <td>Set Volume Maximum</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Prank</td>
-                    <td>Sing RickRoll</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>General</td>
-                    <td>WhatsApp Name Status</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Prank</td>
-                    <td>WhatsApp Message</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>General</td>
-                    <td>Show Number on Signal</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Credentials</td>
-                    <td>Send SystemProfile to Webhook</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td>Execution</td>
-                    <td>Send Current Location</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Prank</td>
-                    <td>Alarm</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Prank</td>
-                    <td>Join Discord Server</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Execution</td>
-                    <td>Change Password User</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Prank</td>
-                    <td>Spam Terminals</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Utility</td>
-                    <td>Check Battery</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>General</td>
-                    <td>Shutdown</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Utility</td>
-                    <td>Open Website</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Prank</td>
-                    <td>Fake Virus</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Utility</td>
-                    <td>PC Login</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td>Prank</td>
-                    <td>Create Non User</td>
-                    <td>🟢</td>
-                </tr>
-                <tr>
-                    <td>iOS</td>
-                    <td>Prank</td>
-                    <td>Text Someone</td>
-                    <td>🟡</td>
-                </tr>
-                <tr>
-                    <td>iOS</td>
-                    <td>Prank</td>
-                    <td>RickRoll Contacts</td>
-                    <td>🟢</td>
-                </tr>
-            </table>
-        </div>
+<div class="container">
+
+  <header>
+    <h1>Payloads for Flipper Zero</h1>
+    <p>This is a comprehensive list of all payloads available for the Flipper Zero. These payloads have been created using DuckyScript® and tested on various systems. Please reach out with any issues or contributions.</p>
+  </header>
+
+  <section class="section">
+    <h2>Complete Payload List</h2>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th>System</th>
+          <th>Category</th>
+          <th>Name</th>
+          <th>PAP</th>
+        </tr>
+
+        <!-- macOS Payloads -->
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Execution</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/IPLogger-FlipZero">IP Logger to Webhook</a></td>
+          <td>🟡</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Credentials</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/GetMacAddress-FlipZero">Get Mac Address to Webhook</a></td>
+          <td>🟡</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/PopUp-FlipZero">Pop Up</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>General</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Shutdown-FlipZero">Shutdown iOS</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>General</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/DisableWiFi-FlipZero">Disable Wifi</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Updates</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/UpadateSoftware-FlipZero">Update Software</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>General</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SetVolumeMax-FlipZero">Set Volume Maximum</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SingRickRoll-FlipZero">Sing RickRoll</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>General</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ChangeNameWhatts-FlipZero">WhatsApp Name Status</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Send_WhatsApp-FlipZero">WhatsApp Message</a></td>
+          <td>🟡</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>General</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ShowPhoneSignal-FlipZero">Show Number on Signal</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Credentials</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SendSysInfo-FlipZero">Send SystemProfile to Webhook</a></td>
+          <td>🟡</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-mac">macOS</span></td>
+          <td>Execution</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ShareCurrentLocation-FlipZero">Send Current Location</a></td>
+          <td>🟡</td>
+        </tr>
+
+        <!-- Windows Payloads -->
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Alarm-FlipZero">Alarm</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero">Join Discord Server</a></td>
+          <td>🟡</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Execution</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero">Change Password User</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/SpamTerminals">Spam Terminals</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Utility</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CheckBattery-FlipZero">Check Battery</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>General</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Shutdown-FlipZero">Shutdown</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Utility</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/OpenWeb-FlipZero">Open Website</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/FakeVirus-FlipZero">Fake Virus</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Utility</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/PCLogin-FlipZero">PC Login</a></td>
+          <td>🟢</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-windows">Windows</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CreateNonUser-FlipZero">Create Non User</a></td>
+          <td>🟢</td>
+        </tr>
+
+        <!-- iOS Payloads -->
+        <tr>
+          <td><span class="badge badge-ios">iOS</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SendMessages-FlipZero">Text Someone</a></td>
+          <td>🟡</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-ios">iOS</span></td>
+          <td>Prank</td>
+          <td><a href="https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Contact-RickRoll-FlipZero">RickRoll Contacts</a></td>
+          <td>🟢</td>
+        </tr>
+      </table>
     </div>
+  </section>
+
+</div>
+
 </body>
 </html>
