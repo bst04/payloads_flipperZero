@@ -3,7 +3,7 @@
 [![Licence](https://img.shields.io/badge/Licence-GPLv3-%239e264c?style=for-the-badge)]([https://github.com/aleff-github/my-flipper-shits/blob/main/LICENCE](https://github.com/brunoooost/payloads_flipperZero/blob/main/LICENSE))
 
 
-Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them.
+Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them. Also if you like some payloads you can give me a star 😉
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbrunoooost%2Fpayloads_flipperZero&count_bg=%235B3B90&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
 
