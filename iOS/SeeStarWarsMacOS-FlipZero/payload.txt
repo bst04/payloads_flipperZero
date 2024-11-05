@@ -1,0 +1,16 @@
+REM ====================================
+REM payload made by bst04
+REM watching starwars, need brew and
+REM telnet
+REM ====================================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING telnet towel.blinkenlights.nl
+DELAY 500
+ENTER
