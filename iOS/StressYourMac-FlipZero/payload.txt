@@ -1,0 +1,15 @@
+REM =====================
+REM payload by bst04.
+REM =====================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+STRING yes
+DELAY 250
+ENTER
+
