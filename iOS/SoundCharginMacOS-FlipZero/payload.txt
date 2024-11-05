@@ -1,0 +1,16 @@
+REM ====================================
+REM payload made by bst04
+REM enable sound of mac charging
+REM ====================================
+
+DELAY 2000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 250
+REM disable with defaults write com.apple.PowerChime ChimeOnAllHardware -bool FALSE; open /System/Library/CoreServices/PowerChime.app
+STRING defaults write com.apple.PowerChime ChimeOnAllHardware -bool true; open /System/Library/CoreServices/PowerChime.app
+DELAY 600
+ENTER
