@@ -12,10 +12,10 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Number of Payloads
 |System|Number|
 |--|--|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**17**|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**18**|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|**11**|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**2**|
-|**TOTAL**|**30**|
+|**TOTAL**|**31**|
 
 
 
@@ -54,6 +54,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Utility|[PC Login](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/PCLogin-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Create Non User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/CreateNonUser-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Credentials|[Get Mac Address to webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/GetMacAddress-FlipZero)|🟡|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Prank|[See StarWars on Terminal](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SeeStarWarsMacOS-FlipZero)|🟢|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[Text Someone ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SendMessages-FlipZero)|🟡|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[RickRoll Contacts ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Contact-RickRoll-FlipZero)|🟢|
 
