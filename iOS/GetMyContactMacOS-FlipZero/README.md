@@ -1,1 +1,1 @@
-# GetMyContactMacOS-FlipZero by bst04 (IN PROGRESS)
+# GetMyContactMacOS-FlipZero by bst04 
