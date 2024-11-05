@@ -12,10 +12,10 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Number of Payloads
 |System|Number|
 |--|--|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**18**|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**20**|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|**11**|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**2**|
-|**TOTAL**|**31**|
+|**TOTAL**|**33**|
 
 
 
