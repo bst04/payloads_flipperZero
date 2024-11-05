@@ -1,0 +1,21 @@
+REM ==================================
+REM payload by bst04
+REM ==================================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 500
+REM in type you can put some format else, like PNG or else...
+STRING defaults write com.apple.screencapture type PDF
+DELAY 750
+ENTER
+DELAY 250
+STRING killall SystemUIServer
+DELAY 500
+ENTER
+DELAY 500
+GUI q
