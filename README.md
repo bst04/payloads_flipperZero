@@ -7,7 +7,12 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbrunoooost%2Fpayloads_flipperZero&count_bg=%235B3B90&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
 
-<img src="https://github.com/brunoooost/payloads_flipperZero/blob/main/img/flipper_zero.jpg?raw=true" width="100" />
+<p align="center">
+<img src="https://github.com/brunoooost/payloads_flipperZero/blob/main/img/payloads_flipperZero.png?raw=true" width="500" />
+  
+  <img src="https://github.com/brunoooost/payloads_flipperZero/blob/main/img/tenor-2506890752.gif?raw=true" width="250" />
+
+</p>
 
 ## Number of Payloads
 |System|Number|
@@ -59,6 +64,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Credentials|[Get Mac Address to webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/GetMacAddress-FlipZero)|🟡|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[Text Someone ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/SendMessages-FlipZero)|🟡|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|Prank|[RickRoll Contacts ](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/Contact-RickRoll-FlipZero)|🟢|
+
 
 
 ## Contributing
