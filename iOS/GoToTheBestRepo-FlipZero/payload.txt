@@ -1,0 +1,11 @@
+REM ====================
+REM payload by bst.04
+REM change link
+REM ====================
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING https://github.com/brunoooost/payloads_flipperZero/tree/main
+DELAY 500
+ENTER
