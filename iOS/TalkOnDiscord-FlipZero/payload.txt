@@ -1,0 +1,25 @@
+REM_BLOCK
+#############################################
+#                                           #
+# Title        : TalkOnDiscord-FlipZero     #
+# Author       : bst04                      #
+# Version      : 1.0                        #
+# Category     : Prank                      #
+# Target       : MacOS devices              #
+#                                           #
+#############################################
+END_REM
+
+
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING Discord
+DELAY 250
+ENTER
+DELAY 500
+GUI 2
+DELAY 250
+STRING hey im a payload ;)
+DELAY 250
+ENTER
