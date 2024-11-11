@@ -1,0 +1,114 @@
+REM ################################################
+REM #                                              #
+REM # Title        : ChangeNameDiscord-FlipZero    #
+REM # Author       : bst04                         #
+REM # Version      : 1.0                           #
+REM # Category     : Execution                     #
+REM # Target       : OS MacOS                      #
+REM #                                              #
+REM ################################################
+
+REM change the delay depending on your speed
+DELAY 1000
+GUI SPACE
+DELAY 250
+STRING DISCORD
+DELAY 250
+ENTER
+DELAY 5000
+
+REM go to configuration of DISCORD
+GUI ,
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+ENTER
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+
+REM change the name
+STRING "name"
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+TAB
+DELAY 250
+ENTER
