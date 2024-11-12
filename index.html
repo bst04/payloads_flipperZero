@@ -3,24 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Your Ideas</title>
+    <title>Number Counter and Submit Your Ideas</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
         }
-        .container {
+        .counter-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        .counter {
+            font-size: 8rem; /* Increased font size */
+            color: #FF8C00; /* Changed color to dark orange */
+            font-weight: bold; /* Added bold weight */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+            margin-left: 20px;
+        }
+        .counter-label {
+            font-size: 2rem; /* Size of the label text */
+            color: #333; /* Color of the label text */
+        }
+        .form-container {
             max-width: 600px;
-            margin: auto;
-            padding: 20px;
+            width: 100%;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            padding: 20px;
         }
-        h1 {
+        .form-container h1 {
             text-align: center;
             color: #F28500;
         }
@@ -46,25 +64,53 @@
         button:hover {
             background-color: #FFBF00;
         }
+        .credit {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #666;
+        }
     </style>
 </head>
 <body>
+    <div class="counter-container">
+        <div class="counter-label">Number of Payloads</div>
+        <div class="counter" id="counter">0</div>
+    </div>
+    <div class="form-container">
+        <h1>Submit Your Idea for a Payload</h1>
+        <form action="mailto:brunoooo@proton.me" method="post" enctype="text/plain">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
 
-<div class="container">
-    <h1>Submit Your Idea for a Payload</h1>
-    <form action="mailto:brunoooo@proton.me" method="post" enctype="text/plain">
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required>
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" required>
+            <label for="idea">Your Idea:</label>
+            <textarea id="idea" name="idea" rows="6" required></textarea>
 
-        <label for="idea">Your Idea:</label>
-        <textarea id="idea" name="idea" rows="6" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <div class="credit">Created by bst04</div>
+    <script>
+        const counterElement = document.getElementById('counter');
+        let count = 0;
 
-        <button type="submit">Send</button>
-    </form>
-</div>
+        const target = 40;
+        const increment = 1;
+        const duration = 2000; // Duration of the animation in milliseconds
+        const stepTime = duration / target;
 
+        function updateCounter() {
+            count += increment;
+            counterElement.textContent = count;
+
+            if (count < target) {
+                setTimeout(updateCounter, stepTime);
+            }
+        }
+
+        updateCounter();
+    </script>
 </body>
 </html>
