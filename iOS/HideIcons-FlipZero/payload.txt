@@ -1,0 +1,9 @@
+REM Hide all desktop icons to enable change flase to true
+DELAY 1000
+GUI SPACE
+DELAY 500
+STRING terminal
+ENTER
+DELAY 1000
+STRING defaults write com.apple.finder CreateDesktop false; killall Finder
+ENTER
