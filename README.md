@@ -17,10 +17,10 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Number of Payloads
 |System|Number|
 |--|--|
-![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**25**|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|**26**|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|**11**|
 |![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)|**3**|
-|**TOTAL**|**39**|
+|**TOTAL**|**40**|
 
 
 
@@ -55,6 +55,7 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Change Name of Discord](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ChangeNameDiscord-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|General|[List USB - by cybersleuth99](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/ListUSB-FlipZero)|🟢|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|General|[Hide Icons - by cybersleuth99](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/HideIcons-FlipZero)|🟢|
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[Open All Apps](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/OpenAll-FlipZero)|🟢|
 |![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Alarm](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/Alarm-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Join Discord Server](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero)|🟡|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Excecution|[Change Password User](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero)|🟢|
@@ -75,6 +76,6 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Contributing
 All contributions are always welcome! List of contributors:
 
-- [@brunoooost](https://github.com/brunoooost) **37 Payloads**
+- [@brunoooost](https://github.com/brunoooost) **38 Payloads**
 - [@Cybersleuth99](https://github.com/Cybersleuth99) **2 Payloads**
 
