@@ -1,0 +1,19 @@
+REM #############################
+REM #                           #
+REM # Title        : OpenALL    #
+REM # Author       : bst04      #
+REM # Version      : 1.0        #
+REM # Category     : Execution  #
+REM # Target       : OS MacOS   #
+REM #                           #
+REM #############################
+
+
+DELAY 1000
+GUI SPACE
+DELAY 500
+STRING terminal
+ENTER
+DELAY 1000
+STRING for app in /Applications/*.app; do open "$app"; done
+ENTER
