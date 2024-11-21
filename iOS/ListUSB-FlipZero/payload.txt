@@ -1,0 +1,9 @@
+REM List all USB devices connected to the system
+DELAY 1000
+GUI SPACE
+DELAY 500
+STRING terminal
+ENTER
+DELAY 1000
+STRING system_profiler SPUSBDataType > ~/Desktop/usb_devices.txt
+ENTER
