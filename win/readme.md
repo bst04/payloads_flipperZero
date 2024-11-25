@@ -21,6 +21,7 @@ Here they are some of payloads for Windows Devices, if you see some errors pleas
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Fake Virus](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/FakeVirus-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Prank|[Hiden BAT file](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/FileBAT-FlipZero)|🟢|
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Credentials|[Get Mac Address to webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/GetMacAddress-FlipZero)|🟡|
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)|Credentials|[Get WiFi Key to webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/win/WiFikeyToWebhook-FlipZero)|🟡|
 
 
 
