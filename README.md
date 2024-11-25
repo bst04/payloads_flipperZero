@@ -77,6 +77,6 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Contributing
 All contributions are always welcome! List of contributors:
 
-- [@brunoooost](https://github.com/brunoooost) **38 Payloads**
+- [@brunoooost](https://github.com/brunoooost) **39 Payloads**
 - [@Cybersleuth99](https://github.com/Cybersleuth99) **2 Payloads**
 
