@@ -1,0 +1,50 @@
+REM #############################
+REM #                           #
+REM # Title        : FileBAT    #
+REM # Author       : bst04      #
+REM # Version      : 1.0        #
+REM # Category     : execution  #
+REM # Target       : OS Windows #
+REM #                           #
+REM #############################
+
+
+REM you can change the content of the bat
+
+
+DELAY 1000
+REM Opens the notepad
+GUI r
+DELAY 500
+STRING notepad
+ENTER
+DELAY 1000
+
+REM Writes the content of the .bat
+STRING @echo off
+ENTER
+STRING echo .bat like a google update
+ENTER
+STRING pause
+ENTER
+CTRL g
+DELAY 500
+
+REM Saves the file to "GoogleUpdate.bat" on the Desktop
+STRING %USERPROFILE%\Documents\GoogleUpdate.bat
+ENTER
+DELAY 500
+ALT F4
+DELAY 500
+
+REM makes a direct acces to the destop
+GUI r 
+DELAY 250
+STRING powershell
+DELAY 250
+ENTER
+DELAY 500
+STRING $WScriptShell = New-Object -ComObject WScript.Shell; $shortcut = $WScriptShell.CreateShortcut([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'GoogleUpdate.lnk')); $shortcut.TargetPath = [System.Environment]::GetFolderPath('UserProfile') + "\Documents\GoogleUpdate.bat"; $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($shortcut.TargetPath); $shortcut.IconLocation = "C:\Windows\System32\shell32.dll, 3"; $shortcut.Save(); Write-Host "Acceso directo creado en el escritorio."
+DELAY 750
+ENTER
+ALT F4
