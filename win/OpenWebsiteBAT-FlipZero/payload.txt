@@ -1,9 +1,9 @@
 REM #############################
 REM #                           #
-REM # Title        : FileBAT    #
+REM # Title        : WebsiteBAT #
 REM # Author       : bst04      #
 REM # Version      : 1.0        #
-REM # Category     : execution  #
+REM # Category     : Utility    #
 REM # Target       : OS Windows #
 REM #                           #
 REM #############################
