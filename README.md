@@ -1,7 +1,7 @@
 # payloads_flipperZero 🐬
 
 [![Licence](https://img.shields.io/badge/Licence-GPLv3-%239e264c?style=for-the-badge)]([https://github.com/aleff-github/my-flipper-shits/blob/main/LICENCE](https://github.com/brunoooost/payloads_flipperZero/blob/main/LICENSE))
-### Check out this room to know about the payloads: [flipperzerobadusbmastery](https://tryhackme.com/jr/flipperzerobadusbmastery)
+
 
 Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them. Also if you like some payloads you can give me a star 😉
 
