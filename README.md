@@ -32,6 +32,12 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 
 ## List of Payloads
 
+**PAP:** Plug And Play                                                                                                         
+                                                                                                                                    
+* **Green:** You don't need to change anything just pluged and it will work                                                           
+* **Orange:** You must change something like a webhook or sth else                                                                    
+* **Red:** Don't Work or in Progress                   
+
 |System|Category|Name|PAP|
 |--|--|--|--|
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)|Execution|[IP Logger to Webhook](https://github.com/brunoooost/payloads_flipperZero/tree/main/iOS/IPLogger-FlipZero)|🟡|
