@@ -1,24 +1,16 @@
 <div align="center">
-<h1> payloads_flipperZero 🐬</h1>
-
-[![Licence](https://img.shields.io/badge/Licence-GPLv3-%239e264c?style=for-the-badge)]([https://github.com/aleff-github/my-flipper-shits/blob/main/LICENCE](https://github.com/brunoooost/payloads_flipperZero/blob/main/LICENSE))
+<h1> payloads_flipperZero</h1>
+  
 
 
 Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them. Also if you like some payloads you can give me a star 😉
 
-**Join cybersecurity tools community: https://discord.gg/DVXAMeae48**
+**‼️Join CyberSources community (1.1k members): https://discord.gg/DVXAMeae48‼️**
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbrunoooost%2Fpayloads_flipperZero&count_bg=%235B3B90&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
 
 
 
-<p align="center">
-  
-<img src="https://github.com/brunoooost/payloads_flipperZero/blob/main/img/payloads_flipperZero.png?raw=true" width="500" />
-  
-  <img src="https://github.com/brunoooost/payloads_flipperZero/blob/main/img/tenor-2506890752.gif?raw=true" width="250" />
-
-</p>
 
 </div>
 
