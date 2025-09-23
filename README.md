@@ -5,7 +5,7 @@
 
 Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them. Also if you like some payloads you can give me a star 😉
 
-**‼️Join CyberSources community (1.8k members): https://discord.gg/DVXAMeae48‼️**
+**‼️Join CyberSources community (2k members): https://discord.gg/DVXAMeae48‼️**
 
 
 
