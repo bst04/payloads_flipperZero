@@ -1,16 +1,15 @@
 <div align="center">
-<h1> payloads_flipperZero</h1>
+<h1> Payloads 4 Flipper Zero</h1>
   
 ![image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2Fq4AkuiTbda8%2Fmaxresdefault.jpg&f=1&nofb=1&ipt=581c11b9785a4d7f5125c3b0108900123c663fc80562dd10c1b5c33808a6f911)
 
 
 Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware that I've only tested them on my system, so they might contain errors. If you encounter any issues, I'd appreciate your feedback to help improve them. Also if you like some payloads you can give me a star 😉
 
-**‼️Join CyberSources community (2k members): https://discord.gg/DVXAMeae48‼️**
-
-
-
 </div>
+
+
+
 
 ## Number of Payloads
 |System|Number|
@@ -84,6 +83,5 @@ Some payloads for your Flipper Zero I made with DuckyScript®. Please be aware t
 ## Contributing
 All contributions are always welcome! List of contributors:
 
-- [@brunoooost](https://github.com/brunoooost) **42 Payloads**
-- [@Cybersleuth99](https://github.com/Cybersleuth99) **2 Payloads**
+![](https://contrib.rocks/image?repo=bst04/payloads_flipperZero)
 
